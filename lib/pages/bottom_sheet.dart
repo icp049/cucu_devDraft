@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'login_page.dart'; // Import LoginPage
 import 'register_page.dart'; // Import SignUpPage
 
@@ -15,6 +16,23 @@ class Sample extends StatelessWidget {
             child: Image.asset(
               'lib/images/starwars.jpg',
               fit: BoxFit.cover,
+            ),
+          ),
+
+
+           Positioned(
+            top: 170, // Adjust the vertical position
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                'c  u  c  u',
+                style: TextStyle(
+                  fontSize: 40, // Increase font size as needed
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white, // You can adjust the color to fit the background
+                ),
+              ),
             ),
           ),
           // Content placed near the bottom center
@@ -34,7 +52,7 @@ class Sample extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12), // Slightly rounded corners
                       ),
                     ),
-                    child: const Text('Log In', style: TextStyle(fontSize: 20)), // Increase font size for clarity
+                    child: const Text('Log In', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black )), // Increase font size for clarity
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
@@ -64,7 +82,7 @@ class Sample extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12), // Slightly rounded corners
                       ),
                     ),
-                    child: const Text('Sign Up', style: TextStyle(fontSize: 20)), // Increase font size for clarity
+                    child: const Text('Sign Up', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black)), // Increase font size for clarity
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
