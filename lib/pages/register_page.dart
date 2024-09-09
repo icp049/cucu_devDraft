@@ -7,7 +7,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-    final DateTime _defaultDate = DateTime.now(); // Default to current date
+  final DateTime _defaultDate = DateTime.now(); // Default to current date
   int currentStep = 0;
   final _formKey = GlobalKey<FormState>();
 
@@ -21,13 +21,13 @@ class _SignUpPageState extends State<SignUpPage> {
   final _dateController = TextEditingController(); // Initialized
 
   DateTime? _selectedDate;
-    bool _obscureText = true;
+  bool _obscureText = true;
 
-
-     @override
+  @override
   void initState() {
     super.initState();
-    _dateController.text = "${_defaultDate.toLocal()}".split(' ')[0]; // Set today's date in YYYY-MM-DD format
+    _dateController.text = "${_defaultDate.toLocal()}"
+        .split(' ')[0]; // Set today's date in YYYY-MM-DD format
   }
 
   @override
@@ -36,6 +36,28 @@ class _SignUpPageState extends State<SignUpPage> {
           title: const Text("Create Account"),
           centerTitle: true,
           backgroundColor: Colors.white,
+          automaticallyImplyLeading:
+              false, // Prevents the automatic back button
+          leading: currentStep != 0
+              ? IconButton(
+                  icon: Icon(Icons.arrow_back, color: Colors.black),
+                  onPressed: () {
+                    setState(() {
+                      currentStep--;
+                    });
+                  },
+                )
+              : null,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.close, color: Colors.black), // Close button
+              onPressed: () {
+                // Define what happens when the "X" button is pressed
+                Navigator.of(context)
+                    .pop(); // Navigate back to the previous screen
+              },
+            ),
+          ],
         ),
         body: LayoutBuilder(
           builder: (context, constraints) {
@@ -48,7 +70,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   padding: EdgeInsets.only(
                     left: 16.0,
                     right: 16.0,
-                    bottom: MediaQuery.of(context).viewInsets.bottom, // Adjusts padding based on keyboard height
+                    bottom: MediaQuery.of(context)
+                        .viewInsets
+                        .bottom, // Adjusts padding based on keyboard height
                   ),
                   child: Form(
                     key: _formKey, // Form key to manage form state
@@ -57,34 +81,37 @@ class _SignUpPageState extends State<SignUpPage> {
                         getStepContent(),
                         const SizedBox(height: 20),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            if (currentStep != 0)
-                              ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    currentStep--;
-                                  });
-                                },
-                                child: Text('Back'),
-                              ),
-                            ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  if (currentStep < 3) {
-                                    setState(() {
-                                      currentStep++;
-                                    });
-                                  } else {
-                                    // Submit the form
-                                    // Register form submission logic here
-                                  }
-                                }
-                              },
-                              child: Text(currentStep < 2 ? 'Continue' : 'Submit'),
-                            ),
-                          ],
-                        ),
+  mainAxisAlignment: MainAxisAlignment.center, // Center the buttons horizontally
+  children: [
+    ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black, // Black button background
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12), // Slightly rounded corners
+        ),
+        minimumSize: Size(300, 50), // Width: 100, Height: 50
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Add more padding if needed
+      ),
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          if (currentStep < 3) {
+            setState(() {
+              currentStep++;
+            });
+          } else {
+            // Submit the form
+            // Register form submission logic here
+          }
+        }
+      },
+      child: Text(
+        currentStep < 3 ? 'Continue' : 'Create Account',
+        style: TextStyle(color: Colors.white), // White text color
+      ),
+    ),
+  ],
+),
+
                       ],
                     ),
                   ),
@@ -177,10 +204,8 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         );
 
-
-
-case 2:
-            return Column(
+      case 2:
+        return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
@@ -205,117 +230,102 @@ case 2:
                 hintStyle: TextStyle(
                   color: Colors.grey,
                 ),
-              
               ),
-              validator: (value) {
-                
-              },
-              
+              validator: (value) {},
             ),
           ],
         );
 
-
-        case 3:
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 20),
-        Text(
-          'Set up your password',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          "Your space is personal, so keep it safe!",
-          style: TextStyle(fontSize: 16, color: Colors.grey),
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
-          controller: _passwordController,
-          obscureText: _obscureText,
-          decoration: InputDecoration(
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey,
+      case 3:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            Text(
+              'Set up your password',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            hintText: 'Your password here',
-            hintStyle: TextStyle(
-              color: Colors.grey,
+            const SizedBox(height: 5),
+            Text(
+              "Your space is personal, so keep it safe!",
+              style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
-            suffixIcon: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.cancel),
-                  onPressed: _clearText,
+            const SizedBox(height: 20),
+            TextFormField(
+              controller: _passwordController,
+              obscureText: _obscureText,
+              decoration: InputDecoration(
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
                 ),
-                IconButton(
-                  icon: Icon(
-                    _obscureText ? Icons.visibility : Icons.visibility_off,
-                  ),
-                  onPressed: _toggleObscureText,
+                hintText: 'Your password here',
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                ),
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.cancel),
+                      onPressed: _clearText,
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: _toggleObscureText,
+                    ),
+                  ],
+                ),
+              ),
+              validator: (value) {
+                // Add your validation logic here
+              },
+            ),
+            const SizedBox(height: 15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Your password must have at least:',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  children: [
+                    Icon(Icons.check, size: 16, color: Colors.green),
+                    const SizedBox(width: 8),
+                    Text(
+                      "8-30 characters long",
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.check, size: 16, color: Colors.green),
+                    const SizedBox(width: 8),
+                    Text(
+                      "1 letter and 1 number",
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.check, size: 16, color: Colors.green),
+                    const SizedBox(width: 8),
+                    Text(
+                      "1 special character [Example: . # ? ! &]",
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
                 ),
               ],
-            ),
-          ),
-          validator: (value) {
-            // Add your validation logic here
-          },
-        ),
-
-
-          const SizedBox(height: 15),
-
-Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    Text(
-      'Your password must have at least:',
-      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-    ),
-    const SizedBox(height: 5),
-    Row(
-      children: [
-        Icon(Icons.check, size: 16, color: Colors.green),
-        const SizedBox(width: 8),
-        Text(
-          "8-30 characters long",
-          style: TextStyle(fontSize: 12, color: Colors.grey),
-        ),
-      ],
-    ),
-    Row(
-      children: [
-        Icon(Icons.check, size: 16, color: Colors.green),
-        const SizedBox(width: 8),
-        Text(
-          "1 letter and 1 number",
-          style: TextStyle(fontSize: 12, color: Colors.grey),
-        ),
-      ],
-    ),
-    Row(
-      children: [
-        Icon(Icons.check, size: 16, color: Colors.green),
-        const SizedBox(width: 8),
-        Text(
-          "1 special character [Example: . # ? ! &]",
-          style: TextStyle(fontSize: 12, color: Colors.grey),
-        ),
-      ],
-    ),
-  ],
-)
-
-
-
-
-
-
-      ],
-    );
-
+            )
+          ],
+        );
 
       default:
         return Container();
@@ -332,11 +342,13 @@ Column(
             height: 200,
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
-              initialDateTime: _defaultDate, // Use the default date for initialization
+              initialDateTime:
+                  _defaultDate, // Use the default date for initialization
               onDateTimeChanged: (DateTime newDate) {
                 setState(() {
                   _selectedDate = newDate;
-                  _dateController.text = "${newDate.toLocal()}".split(' ')[0]; // Format the date as YYYY-MM-DD
+                  _dateController.text = "${newDate.toLocal()}"
+                      .split(' ')[0]; // Format the date as YYYY-MM-DD
                 });
               },
             ),
@@ -350,14 +362,13 @@ Column(
     );
   }
 
-
-    void _toggleObscureText() {
+  void _toggleObscureText() {
     setState(() {
       _obscureText = !_obscureText;
     });
   }
 
-   void _clearText() {
+  void _clearText() {
     _passwordController.clear();
   }
 }
