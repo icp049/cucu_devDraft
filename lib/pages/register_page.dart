@@ -167,7 +167,87 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ],
         );
-      case 2:
+
+
+
+case 2:
+            return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            Text(
+              'Set up your email',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              "Lets connect you with the world and stay in touch with friends, share spaces and more",
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
+                hintText: 'Your email here',
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                ),
+              
+              ),
+              validator: (value) {
+                
+              },
+              
+            ),
+          ],
+        );
+
+
+        case 3:
+            return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            Text(
+              'Set up your password',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              "Your space is personal, so keep it safe!",
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
+                hintText: 'Your email here',
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                ),
+              
+              ),
+              validator: (value) {
+                
+              },
+              
+            ),
+          ],
+        );
+
+
+
+
+        
+      case 4:
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
