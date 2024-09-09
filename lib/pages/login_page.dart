@@ -11,7 +11,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 1500,
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

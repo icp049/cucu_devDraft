@@ -7,6 +7,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+    final DateTime _defaultDate = DateTime.now(); // Default to current date
   int currentStep = 0;
   final _formKey = GlobalKey<FormState>();
 
@@ -20,6 +21,14 @@ class _SignUpPageState extends State<SignUpPage> {
   final _dateController = TextEditingController(); // Initialized
 
   DateTime? _selectedDate;
+    bool _obscureText = true;
+
+
+     @override
+  void initState() {
+    super.initState();
+    _dateController.text = "${_defaultDate.toLocal()}".split(' ')[0]; // Set today's date in YYYY-MM-DD format
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -62,7 +71,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  if (currentStep < 2) {
+                                  if (currentStep < 3) {
                                     setState(() {
                                       currentStep++;
                                     });
@@ -208,58 +217,106 @@ case 2:
 
 
         case 3:
-            return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
-            Text(
-              'Set up your password',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20),
+        Text(
+          'Set up your password',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 5),
+        Text(
+          "Your space is personal, so keep it safe!",
+          style: TextStyle(fontSize: 16, color: Colors.grey),
+        ),
+        const SizedBox(height: 20),
+        TextFormField(
+          controller: _passwordController,
+          obscureText: _obscureText,
+          decoration: InputDecoration(
+            labelStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.grey,
             ),
-            const SizedBox(height: 5),
-            Text(
-              "Your space is personal, so keep it safe!",
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            hintText: 'Your password here',
+            hintStyle: TextStyle(
+              color: Colors.grey,
             ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
+            suffixIcon: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.cancel),
+                  onPressed: _clearText,
                 ),
-                hintText: 'Your email here',
-                hintStyle: TextStyle(
-                  color: Colors.grey,
+                IconButton(
+                  icon: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                  ),
+                  onPressed: _toggleObscureText,
                 ),
-              
-              ),
-              validator: (value) {
-                
-              },
-              
+              ],
             ),
-          ],
-        );
+          ),
+          validator: (value) {
+            // Add your validation logic here
+          },
+        ),
+
+
+          const SizedBox(height: 15),
+
+Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Text(
+      'Your password must have at least:',
+      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+    ),
+    const SizedBox(height: 5),
+    Row(
+      children: [
+        Icon(Icons.check, size: 16, color: Colors.green),
+        const SizedBox(width: 8),
+        Text(
+          "8-30 characters long",
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+      ],
+    ),
+    Row(
+      children: [
+        Icon(Icons.check, size: 16, color: Colors.green),
+        const SizedBox(width: 8),
+        Text(
+          "1 letter and 1 number",
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+      ],
+    ),
+    Row(
+      children: [
+        Icon(Icons.check, size: 16, color: Colors.green),
+        const SizedBox(width: 8),
+        Text(
+          "1 special character [Example: . # ? ! &]",
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+      ],
+    ),
+  ],
+)
 
 
 
 
-        
-      case 4:
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Review & Submit', style: TextStyle(fontSize: 18)),
-            // Display collected data for review
-            Text('Name: ${_nameController.text}'),
-            Text('Email: ${_emailController.text}'),
-            Text('Address: ${_addressController.text}, ${_cityController.text}, ${_postalCodeController.text}'),
-            Text('Postal Code: ${_postalCodeController.text}'),
-            Text('Selected Date: ${_dateController.text}'),
-          ],
-        );
+
+
+      ],
+    );
+
+
       default:
         return Container();
     }
@@ -275,7 +332,7 @@ case 2:
             height: 200,
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
-              initialDateTime: DateTime.now(),
+              initialDateTime: _defaultDate, // Use the default date for initialization
               onDateTimeChanged: (DateTime newDate) {
                 setState(() {
                   _selectedDate = newDate;
@@ -291,5 +348,16 @@ case 2:
         ),
       ),
     );
+  }
+
+
+    void _toggleObscureText() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+   void _clearText() {
+    _passwordController.clear();
   }
 }
