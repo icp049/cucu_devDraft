@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'login_page.dart'; // Import LoginPage
 import 'register_page.dart'; // Import SignUpPage
@@ -26,10 +28,26 @@ class Sample extends StatelessWidget {
             right: 0,
             child: Center(
               child: Text(
-                'c  u  c  u',
+                'c u c u',
                 style: TextStyle(
                   fontSize: 40, // Increase font size as needed
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white, // You can adjust the color to fit the background
+                ),
+              ),
+            ),
+          ),
+
+           Positioned(
+            top: 220, // Adjust the vertical position
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                'shape your space...',
+                style: TextStyle(
+                  fontSize: 25, // Increase font size as needed
+                  fontWeight: FontWeight.w100,
                   color: Colors.white, // You can adjust the color to fit the background
                 ),
               ),
