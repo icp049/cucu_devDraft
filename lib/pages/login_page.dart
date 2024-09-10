@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cucu/components/ru_button.dart';
 import 'package:cucu/components/ru_textfield.dart';
 import 'package:cucu/helper_functions/email_validator.dart';
-
+import 'package:cucu/pages/home_page.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key,  this.onTap});
 
@@ -100,7 +100,15 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    RUButton(text: "Login", onTap: null),
+                 RUButton(
+  text: "Login",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
+  },
+),
                     const SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
