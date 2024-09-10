@@ -22,43 +22,61 @@ class TabBarExample extends StatelessWidget {
       initialIndex: 0,
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          // title:  const Text(
-          //       "cucu",
-          //       style: TextStyle( 
-          //         fontFamily: 'PixelifySans', 
-          //   fontWeight: FontWeight.normal,
-          //   fontSize: 50,
-          //       ),
-          //     ),
-                 centerTitle: true,
-          // bottom: const TabBar(
-          //   tabs: <Widget>[
-          //     Tab(
-          //       icon: Icon(Icons.warning, // or Icons.error for a more severe warning
-          //         color: Colors.red),
-          //     ),
-          //     Tab(
-          //       icon: Icon(
-          //       Icons.public, color: Colors.blue,
-                  
-                  
-          //          // customize the color as needed
-          //       ),
-          //     ),
-          //   ],
-          // ),
+        endDrawer: const RUDrawer(), // Use endDrawer for right-side drawer
+        body: Stack(
+          children: [
+            // The TabBarView is commented out in your code
+            // You can uncomment and use it if needed
+            // const TabBarView(
+            //   children: <Widget>[
+            //     Center(
+            //       child: AlertsPage(),
+            //     ),
+            //     Center(
+            //       child: MapPage(),
+            //     ),
+            //   ],
+            // ),
+            Positioned(
+              top: 40,
+              right: 0, // Ensure the button is positioned correctly
+              child: Builder(
+                builder: (BuildContext context) => IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer(); // Open the end drawer
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
-        drawer: const RUDrawer(), // Add your drawer here
-        // body: const TabBarView(
-        //   children: <Widget>[
-        //     Center(
-        //       child: AlertsPage(),
+        // AppBar commented out
+        // Uncomment and use it if needed
+        // appBar: AppBar(
+        //   title: const Text(
+        //     "cucu",
+        //     style: TextStyle(
+        //       fontFamily: 'PixelifySans',
+        //       fontWeight: FontWeight.normal,
+        //       fontSize: 50,
         //     ),
-        //     Center(
-        //       child: MapPage(),
-        //     ),
-        //   ],
+        //   ),
+        //   centerTitle: true,
+        //   bottom: const TabBar(
+        //     tabs: <Widget>[
+        //       Tab(
+        //         icon: Icon(Icons.warning, // or Icons.error for a more severe warning
+        //           color: Colors.red),
+        //       ),
+        //       Tab(
+        //         icon: Icon(
+        //           Icons.public, color: Colors.blue,
+        //           // customize the color as needed
+        //         ),
+        //       ),
+        //     ],
+        //   ),
         // ),
       ),
     );
