@@ -1,61 +1,132 @@
 import 'package:flutter/material.dart';
 import 'package:cucu/components/ru_button.dart';
 import 'package:cucu/components/ru_textfield.dart';
+import 'package:cucu/helper_functions/email_validator.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key,  this.onTap});
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final void Function()? onTap;
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
+  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  double _imageOpacity = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Start the fade-in effect once the page has been rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        _imageOpacity = 1.0; // This will animate the opacity from 0 to 1
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Log In',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        // Dismiss the keyboard when tapping anywhere outside the text fields
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Form(
+                key: _loginFormKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+             AnimatedOpacity(
+  opacity: _imageOpacity,
+  duration: const Duration(seconds: 2),  // Increase the duration for a smoother effect
+  curve: Curves.easeInOut,  // Apply a smooth easing curve
+  child: Image.asset(
+    'lib/images/logo.png',
+    width: 200,  // Adjust the width and height as needed
+    height: 200,
+    fit: BoxFit.contain,
+  ),
+),
+                    
+                    const SizedBox(height: 25),
+                    RUTextfield(
+                      hintText: "Email",
+                      obscuredText: false,
+                      controller: emailController,
+                      validator: validateEmail,
+                    ),
+                    const SizedBox(height: 10),
+                    RUTextfield(
+                      hintText: "Password",
+                      obscuredText: true,
+                      controller: passwordController,
+                      validator: (password) {
+                        if (password == null || password.isEmpty) {
+                          return 'Please enter a password';
+                        }
+                        return password.length < 6
+                            ? 'Password can NOT be less than 6 characters'
+                            : null;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // Forgot Password logic here
+                          },
+                          child: Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    RUButton(text: "Login", onTap: null),
+                    const SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don't have an account?",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                        const SizedBox(width: 3),
+                        GestureDetector(
+                          onTap: widget.onTap,
+                          child: const Text(
+                            " Register Here",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              const Text(
-                'Return to your space, revisit what you love, and rekindle your connections.',
-                style: TextStyle(
-                  color: Colors.white70,
-                ),
-              ),
-              const SizedBox(height: 20),
-              RUTextfield(
-                hintText: "Email",
-                obscuredText: false,
-                controller: _emailController,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                hintTextColor: Colors.white,
-              ),
-              const SizedBox(height: 16),
-              RUTextfield(
-                hintText: "Password",
-                obscuredText: true,
-                controller: _passwordController,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                hintTextColor: Colors.white,
-              ),
-              const SizedBox(height: 24),
-              RUButton(
-                text: "Login",
-                onTap: () {
-                  // Handle login action
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+            ),
           ),
         ),
       ),

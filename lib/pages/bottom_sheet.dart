@@ -1,9 +1,10 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'login_page.dart'; // Import LoginPage
-import 'register_page.dart'; // Import SignUpPage
+
+import 'package:cucu/auth/login_or_register.dart';
 
 class Sample extends StatelessWidget {
   const Sample({super.key});
@@ -83,43 +84,43 @@ class Sample extends StatelessWidget {
                         builder: (BuildContext context) {
                           return Container(
                             height: MediaQuery.of(context).size.height * 0.75, // Set height to 75% of screen height
-                            child: LoginPage(),
+                            child: LoginOrRegister(),
                           );
                         },
                       );
                     },
                   ),
                 ),
-                const SizedBox(width: 30), // Spacing between buttons
-                SizedBox(
-                  width: 170, // Width for larger button
-                  height: 70, // Height for more square shape
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12), // Slightly rounded corners
-                      ),
-                    ),
-                    child: const Text('Sign Up', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black)), // Increase font size for clarity
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true, // Allows height to be controlled
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                        ),
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height * 0.75, // Set height to 75% of screen height
-                            child: SignUpPage(),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
+                // const SizedBox(width: 30), // Spacing between buttons
+                // SizedBox(
+                //   width: 170, // Width for larger button
+                //   height: 70, // Height for more square shape
+                //   child: ElevatedButton(
+                //     style: ElevatedButton.styleFrom(
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(12), // Slightly rounded corners
+                //       ),
+                //     ),
+                //     child: const Text('Sign Up', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black)), // Increase font size for clarity
+                //     onPressed: () {
+                //       showModalBottomSheet(
+                //         context: context,
+                //         isScrollControlled: true, // Allows height to be controlled
+                //         shape: const RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.vertical(
+                //             top: Radius.circular(20),
+                //           ),
+                //         ),
+                //         builder: (BuildContext context) {
+                //           return Container(
+                //             height: MediaQuery.of(context).size.height * 0.75, // Set height to 75% of screen height
+                //             child: SignUpPage(onTap: ,),
+                //           );
+                //         },
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),

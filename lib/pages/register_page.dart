@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key, this.onTap});
+  final void Function()? onTap;
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
@@ -32,10 +34,11 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
         appBar: AppBar(
           title: const Text("Create Account"),
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor:Theme.of(context).colorScheme.primary,
           automaticallyImplyLeading:
               false, // Prevents the automatic back button
           leading: currentStep != 0
@@ -81,37 +84,70 @@ class _SignUpPageState extends State<SignUpPage> {
                         getStepContent(),
                         const SizedBox(height: 20),
                         Row(
-  mainAxisAlignment: MainAxisAlignment.center, // Center the buttons horizontally
-  children: [
-    ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.black, // Black button background
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12), // Slightly rounded corners
-        ),
-        minimumSize: Size(300, 50), // Width: 100, Height: 50
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Add more padding if needed
-      ),
-      onPressed: () {
-        if (_formKey.currentState!.validate()) {
-          if (currentStep < 3) {
-            setState(() {
-              currentStep++;
-            });
-          } else {
-            // Submit the form
-            // Register form submission logic here
-          }
-        }
-      },
-      child: Text(
-        currentStep < 3 ? 'Continue' : 'Create Account',
-        style: TextStyle(color: Colors.white), // White text color
-      ),
-    ),
-  ],
-),
+                          mainAxisAlignment: MainAxisAlignment
+                              .center, // Center the buttons horizontally
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Colors.black, // Black button background
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      12), // Slightly rounded corners
+                                ),
+                                minimumSize:
+                                    Size(300, 50), // Width: 100, Height: 50
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 20,
+                                    horizontal:
+                                        40), // Add more padding if needed
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (currentStep < 3) {
+                                    setState(() {
+                                      currentStep++;
+                                    });
+                                  } else {
+                                    // Submit the form
+                                    // Register form submission logic here
+                                  }
+                                }
+                              },
+                              child: Text(
+                                currentStep < 3 ? 'Continue' : 'Create Account',
+                                style: TextStyle(
+                                    color: Colors.white), // White text color
+                              ),
+                            ),
+                          ],
+                        ),
+                         
 
+                         const SizedBox(height:100),
+
+                        if(currentStep == 0)
+                          Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account?",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    const SizedBox(width: 3),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: const Text(
+                        "Login Here",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                       ],
                     ),
                   ),
