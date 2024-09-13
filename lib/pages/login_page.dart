@@ -3,8 +3,9 @@ import 'package:cucu/components/ru_button.dart';
 import 'package:cucu/components/ru_textfield.dart';
 import 'package:cucu/helper_functions/email_validator.dart';
 import 'package:cucu/pages/home_page.dart';
+
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key,  this.onTap});
+  const LoginPage({super.key, this.onTap});
 
   final void Function()? onTap;
 
@@ -16,20 +17,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-  double _imageOpacity = 0.0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Start the fade-in effect once the page has been rendered
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        _imageOpacity = 1.0; // This will animate the opacity from 0 to 1
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +36,40 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-             AnimatedOpacity(
-  opacity: _imageOpacity,
-  duration: const Duration(seconds: 2),  // Increase the duration for a smoother effect
-  curve: Curves.easeInOut,  // Apply a smooth easing curve
-  child: Image.asset(
-    'lib/images/logo.png',
-    width: 200,  // Adjust the width and height as needed
-    height: 200,
-    fit: BoxFit.contain,
-  ),
-),
-                    
-                    const SizedBox(height: 25),
+                    // Row with "Login" text and logo
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Login",
+                          style: TextStyle(
+                            fontSize: 32, // Adjust the font size as needed
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Image.asset(
+                          'lib/images/logo.png',
+                          width: 60, // Adjust the size as needed
+                          height: 60,
+                          fit: BoxFit.contain,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+
+              const Text(
+                        "Return to your space, revisit what you love, and rekindle your connections.",
+                        style: TextStyle(
+                          fontSize: 18, // Adjust the font size as needed
+                          color: Colors.grey,
+                        ),
+                      ),
+                      // Add other parameters like title, subtitle, etc. if needed
+
+                         const SizedBox(height: 20),
+             
+
                     RUTextfield(
                       hintText: "Email",
                       obscuredText: false,
@@ -93,28 +101,29 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           child: Text(
                             "Forgot Password?",
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: Colors.black,
                             ),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
-                 RUButton(
-  text: "Login",
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
-  },
-),
+                    RUButton(
+                      text: "L O G I N",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()),
+                        );
+                      },
+                    ),
                     const SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don't have an account?",
+                          "New to CUCU?",
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
                           ),

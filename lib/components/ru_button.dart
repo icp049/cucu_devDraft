@@ -16,7 +16,7 @@ class RUButton extends StatelessWidget {
       onTap: onTap,
       child: Ink(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: Colors.black,
           borderRadius: BorderRadius.circular(12),
         ),
         child: InkWell(
@@ -32,6 +32,7 @@ class RUButton extends StatelessWidget {
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16, // Adjust the font size as needed
+                  color: Colors.white
                 ),
               ),
             ),
