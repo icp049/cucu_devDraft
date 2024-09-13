@@ -1,3 +1,5 @@
+import 'package:cucu/pages/add_post.dart';
+import 'package:cucu/pages/feed_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cucu/components/ru_drawer.dart';
 import 'editor_page.dart';
@@ -38,34 +40,39 @@ class TabBarExample extends StatelessWidget {
             //     ),
             //   ],
             // ),
-Positioned.fill(
-            child: SpaceCreatorPage(),
-          ),
 
-          
-Positioned(
+            // Positioning AddPostPage below the icons with some space
+            Positioned(
+              top: 100, // This ensures space for the icons
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: const AddPostPage(),
+            ),
+
+            // Profile Icon
+            Positioned(
               top: 40,
               left: 10, // Ensure the button is positioned correctly
               child: Builder(
                 builder: (BuildContext context) => IconButton(
                   icon: const Icon(Icons.person),
-                     iconSize: 30.0,
+                  iconSize: 30.0,
                   onPressed: () {
-                  //add action here
+                    // Add action here
                   },
                 ),
               ),
             ),
-         
 
-
+            // Menu Icon
             Positioned(
               top: 40,
               right: 10, // Ensure the button is positioned correctly
               child: Builder(
                 builder: (BuildContext context) => IconButton(
                   icon: const Icon(Icons.menu),
-                    iconSize: 30.0,
+                  iconSize: 30.0,
                   onPressed: () {
                     Scaffold.of(context).openEndDrawer(); // Open the end drawer
                   },
@@ -74,36 +81,6 @@ Positioned(
             ),
           ],
         ),
-        // AppBar commented out
-        // Uncomment and use it if needed
-        // appBar: AppBar(
-        //   title: const Text(
-        //     "cucu",
-        //     style: TextStyle(
-        //       fontFamily: 'PixelifySans',
-        //       fontWeight: FontWeight.normal,
-        //       fontSize: 50,
-        //     ),
-        //   ),
-        //   centerTitle: true,
-        //   bottom: const TabBar(
-        //     tabs: <Widget>[
-        //       Tab(
-        //         icon: Icon(Icons.warning, // or Icons.error for a more severe warning
-        //           color: Colors.red),
-        //       ),
-        //       Tab(
-        //         icon: Icon(
-        //           Icons.public, color: Colors.blue,
-        //           // customize the color as needed
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-
-
-        
       ),
     );
   }
