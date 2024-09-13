@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cucu/components/ru_drawer.dart';
+import 'editor_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -37,12 +38,34 @@ class TabBarExample extends StatelessWidget {
             //     ),
             //   ],
             // ),
+Positioned.fill(
+            child: SpaceCreatorPage(),
+          ),
+
+          
+Positioned(
+              top: 40,
+              left: 10, // Ensure the button is positioned correctly
+              child: Builder(
+                builder: (BuildContext context) => IconButton(
+                  icon: const Icon(Icons.person),
+                     iconSize: 30.0,
+                  onPressed: () {
+                  //add action here
+                  },
+                ),
+              ),
+            ),
+         
+
+
             Positioned(
               top: 40,
-              right: 0, // Ensure the button is positioned correctly
+              right: 10, // Ensure the button is positioned correctly
               child: Builder(
                 builder: (BuildContext context) => IconButton(
                   icon: const Icon(Icons.menu),
+                    iconSize: 30.0,
                   onPressed: () {
                     Scaffold.of(context).openEndDrawer(); // Open the end drawer
                   },
@@ -78,6 +101,9 @@ class TabBarExample extends StatelessWidget {
         //     ],
         //   ),
         // ),
+
+
+        
       ),
     );
   }
