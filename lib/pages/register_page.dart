@@ -126,28 +126,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                          const SizedBox(height:100),
 
-                        if(currentStep == 0)
-                          Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have an account?",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    const SizedBox(width: 3),
-                    GestureDetector(
-                      onTap: widget.onTap,
-                      child: const Text(
-                        "Login Here",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                        
                       ],
                     ),
                   ),

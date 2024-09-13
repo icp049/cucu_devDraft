@@ -3,20 +3,19 @@ import 'package:cucu/components/ru_button.dart';
 import 'package:cucu/components/ru_textfield.dart';
 import 'package:cucu/helper_functions/email_validator.dart';
 import 'package:cucu/pages/home_page.dart';
+import 'package:cucu/pages/register_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, this.onTap});
+class CreateAccountGreetingPage extends StatefulWidget {
+  const CreateAccountGreetingPage({super.key, this.onTap});
 
   final void Function()? onTap;
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<CreateAccountGreetingPage> createState() => _CreateAccountGreetingPage();
 }
 
-class _LoginPageState extends State<LoginPage>  {
-  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _CreateAccountGreetingPage extends State<CreateAccountGreetingPage> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +30,8 @@ class _LoginPageState extends State<LoginPage>  {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(25.0),
-              child: Form(
-                key: _loginFormKey,
+          
+             
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -41,7 +40,7 @@ class _LoginPageState extends State<LoginPage>  {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          "Login",
+                          "Create Account",
                           style: TextStyle(
                             fontSize: 32, // Adjust the font size as needed
                             fontWeight: FontWeight.bold,
@@ -58,8 +57,8 @@ class _LoginPageState extends State<LoginPage>  {
                     ),
                     const SizedBox(height: 15),
 
-              const Text(
-                        "Return to your space, revisit what you love, and rekindle your connections.",
+                const Text(
+                        "Discover content and customize your own space",
                         style: TextStyle(
                           fontSize: 18, // Adjust the font size as needed
                           color: Colors.grey,
@@ -70,60 +69,25 @@ class _LoginPageState extends State<LoginPage>  {
                          const SizedBox(height: 20),
              
 
-                    RUTextfield(
-                      hintText: "Email",
-                      obscuredText: false,
-                      controller: emailController,
-                      validator: validateEmail,
-                    ),
+                  
                     const SizedBox(height: 10),
-                    RUTextfield(
-                      hintText: "Password",
-                      obscuredText: true,
-                      controller: passwordController,
-                      validator: (password) {
-                        if (password == null || password.isEmpty) {
-                          return 'Please enter a password';
-                        }
-                        return password.length < 6
-                            ? 'Password can NOT be less than 6 characters'
-                            : null;
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // Forgot Password logic here
-                          },
-                          child: Text(
-                            "Forgot Password?",
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
+                    
+             
                     RUButton(
-                      text: "L O G I N",
+                      text: "C R E A T E  A C C O U N T",
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()),
-                        );
-                      },
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => SignUpPage()),
+  );
+},
                     ),
                     const SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "New to CUCU?",
+                          "Already have an accoun?",
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
                           ),
@@ -132,7 +96,7 @@ class _LoginPageState extends State<LoginPage>  {
                         GestureDetector(
                           onTap: widget.onTap,
                           child: const Text(
-                            " Register Here",
+                            "Login",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -142,7 +106,7 @@ class _LoginPageState extends State<LoginPage>  {
                     ),
                   ],
                 ),
-              ),
+            
             ),
           ),
         ),

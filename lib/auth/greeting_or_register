@@ -1,5 +1,4 @@
 
-import 'package:cucu/pages/create_greeting.dart';
 import 'package:flutter/material.dart';
 import 'package:cucu/pages/login_page.dart';
 import 'package:cucu/pages/register_page.dart';
@@ -28,7 +27,7 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
       duration: const  Duration(milliseconds: 300), // Animation duration
       child: showLoginPage
           ? LoginPage(onTap: togglePages)
-          : CreateAccountGreetingPage(onTap: togglePages),
+          : SignUpPage(onTap: togglePages),
       // Add fade transition
       transitionBuilder: (Widget child, Animation<double> animation) {
         return FadeTransition(
